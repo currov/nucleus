@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.frvalent.myapplication.DisplayMessageActivity"
+    tools:context="com.example.frvalent.myapplication.DisplayCellsActivity"
     android:id="@+id/activity_display_message">
 
     <TextView
@@ -17,5 +17,7 @@
         android:layout_marginRight="16dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:maxLines="500"
+        android:scrollbars="vertical"/>
 </android.support.constraint.ConstraintLayout>
