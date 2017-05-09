@@ -12,8 +12,11 @@ import android.telephony.CellInfo;
 import android.telephony.CellInfoGsm;
 import android.telephony.CellInfoLte;
 import android.telephony.CellInfoWcdma;
+import android.telephony.CellSignalStrengthGsm;
 import android.telephony.CellSignalStrengthLte;
+import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.TelephonyManager;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +28,10 @@ public class DisplayCellsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_display_cells);
+
+
+
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
@@ -38,6 +44,7 @@ public class DisplayCellsActivity extends AppCompatActivity {
 
         TelephonyManager tm=(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         textView1=(TextView) findViewById(R.id.textView);
+        textView1.setMovementMethod(new ScrollingMovementMethod());
         String IMEINumber=tm.getDeviceId();
         String subscriberID=tm.getSubscriberId();
         String myPhoneNumber = tm.getLine1Number();
@@ -105,16 +112,27 @@ public class DisplayCellsActivity extends AppCompatActivity {
             if (inputCellInfo instanceof CellInfoGsm) {
                 CellInfoGsm gsm = (CellInfoGsm) inputCellInfo;
                 CellIdentityGsm id = gsm.getCellIdentity();
+                boolean registered = gsm.isRegistered();
+                CellSignalStrengthGsm sig = gsm.getCellSignalStrength();
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 info+="\n GSM CELL"+ i ;
+                info+="\n REGISTERED? " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CID"+id.getCid()+"  LAC"+id.getLac();
+                info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
+
             } else if (inputCellInfo instanceof CellInfoWcdma) {
 
                 CellInfoWcdma wcdma = (CellInfoWcdma) inputCellInfo;
                 CellIdentityWcdma id = wcdma.getCellIdentity();
+                boolean registered = wcdma.isRegistered();
+                CellSignalStrengthWcdma sig = wcdma.getCellSignalStrength();
+
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 info+="\n WCDMA CELL "+ i ;
+                info+="\n REGISTERED? " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CID"+id.getCid()+"  LAC"+id.getLac();
+                info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
+
 
             }
             else if (inputCellInfo instanceof CellInfoLte) {
@@ -126,8 +144,7 @@ public class DisplayCellsActivity extends AppCompatActivity {
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 //info += "\n LTE CELL  :" + id.getMcc() + " " + id.getMnc() + " " + id.getCi() + " " + id.getTac();
                 info+="\n LTE CELL "+ i ;
-                info+="\n IS REGISTERED" + registered;
-                info+="\n LTE DUMP "+ id ;
+                info+="\n REGISTERED? " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CI: "+id.getCi()+"  TAC: "+id.getTac()  + "PCI " + id.getPci() ;
                 info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
 
