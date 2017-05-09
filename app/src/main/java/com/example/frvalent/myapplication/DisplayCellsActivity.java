@@ -112,11 +112,11 @@ public class DisplayCellsActivity extends AppCompatActivity {
             if (inputCellInfo instanceof CellInfoGsm) {
                 CellInfoGsm gsm = (CellInfoGsm) inputCellInfo;
                 CellIdentityGsm id = gsm.getCellIdentity();
-                boolean registered = gsm.isRegistered();
+                String registered = gsm.isRegistered()?"REGISTERED":"UNREGISTERED";;
                 CellSignalStrengthGsm sig = gsm.getCellSignalStrength();
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 info+="\n GSM CELL"+ i ;
-                info+="\n REGISTERED? " + registered;
+                info+="\n " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CID"+id.getCid()+"  LAC"+id.getLac();
                 info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
 
@@ -124,12 +124,12 @@ public class DisplayCellsActivity extends AppCompatActivity {
 
                 CellInfoWcdma wcdma = (CellInfoWcdma) inputCellInfo;
                 CellIdentityWcdma id = wcdma.getCellIdentity();
-                boolean registered = wcdma.isRegistered();
+                String registered = wcdma.isRegistered()?"REGISTERED":"UNREGISTERED";;
                 CellSignalStrengthWcdma sig = wcdma.getCellSignalStrength();
 
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 info+="\n WCDMA CELL "+ i ;
-                info+="\n REGISTERED? " + registered;
+                info+="\n " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CID"+id.getCid()+"  LAC"+id.getLac();
                 info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
 
@@ -138,23 +138,30 @@ public class DisplayCellsActivity extends AppCompatActivity {
             else if (inputCellInfo instanceof CellInfoLte) {
 
                 CellInfoLte lte = (CellInfoLte) inputCellInfo;
-                boolean registered = lte.isRegistered();
+                String registered = lte.isRegistered()?"REGISTERED":"UNREGISTERED";
+
                 CellIdentityLte id = lte.getCellIdentity();
                 CellSignalStrengthLte sig = lte.getCellSignalStrength();
                 //cellLocation = db.query(id.getMcc(), id.getMnc(), id.getCid(), id.getLac());
                 //info += "\n LTE CELL  :" + id.getMcc() + " " + id.getMnc() + " " + id.getCi() + " " + id.getTac();
                 info+="\n LTE CELL "+ i ;
-                info+="\n REGISTERED? " + registered;
+                info+="\n " + registered;
                 info+="\n        MCC:" +id.getMcc()+"   MNC: "+id.getMnc()+"  CI: "+id.getCi()+"  TAC: "+id.getTac()  + "PCI " + id.getPci() ;
                 info+="\n        " + -sig.getDbm()/10+" dBm " + sig.getAsuLevel() + "asu (Level "+ sig.getLevel()+"/4)";
 
             }
 
+            else {
+
+                info+="\n UNIDENTIFIED CELL TYPE: "+ i ;
+            }
+
 
             if ((cellLocation != null)) {
                 rslt.add(cellLocation);
+
             }
-            System.out.println("No cell type identified");
+
             i++;
         }
 
