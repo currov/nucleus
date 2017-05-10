@@ -29,13 +29,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayCellsActivity" />
+        <activity android:name=".DisplayCellsActivity" >
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
+        </activity>
 
-        <activity android:name=".DialOutActivity"></activity>
+        <activity android:name=".DialOutActivity" />
+        <activity android:name=".MessagesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
     </application>
 
 </manifest>
