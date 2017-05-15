@@ -3,4 +3,5 @@
     <string name="edit_message">Enter a message</string>
     <string name="button_send">CONNECTION DETAILS </string>
     <string name="title_activity_diall_out">DiallOutActivity</string>
+    <string name="title_activity_view_messages">ViewMessagesActivity</string>
 </resources>

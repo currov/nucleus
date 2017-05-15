@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -64,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
     public void sendMessage(View view){ //from the tutorial
 
         Intent intent = new Intent(this, DisplayCellsActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        //intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+    }
+
+    public void manageMessages(View view){ //from the tutorial
+
+        Intent intent = new Intent(this, ViewMessagesActivity.class);
         //EditText editText = (EditText) findViewById(R.id.editText);
         //String message = editText.getText().toString();
         //intent.putExtra(EXTRA_MESSAGE, message);
